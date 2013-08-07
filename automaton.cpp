@@ -1,6 +1,7 @@
 #include "automaton.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 
 void Automaton::Update(void)
 {
