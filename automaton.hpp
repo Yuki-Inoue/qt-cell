@@ -77,8 +77,6 @@ public slots:
     void Clear();
     void Update();
     void ChangeSpeed(int speed);
-    void MouseMove(int x, int y);
-    void MouseDown(int x, int y);
     void start();
     void stop();
 signals:

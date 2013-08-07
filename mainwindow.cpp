@@ -42,12 +42,6 @@ void MainWindow::initConnections()
     connect(this->life,SIGNAL(updated()),
             ui->glView,SLOT(updateGL()));
 
-    connect(ui->glView, SIGNAL(mouseDown(int, int)),
-            this->life,SLOT(MouseDown(int, int)));
-
-    connect(ui->glView, SIGNAL(mouseMove(int, int)),
-            this->life, SLOT(MouseMove(int, int)));
-
     connect(ui->glView, SIGNAL(pauseAutomaton()),
             this->life, SLOT(stop()));
 

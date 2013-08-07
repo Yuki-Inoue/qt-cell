@@ -81,21 +81,6 @@ void Automaton::ChangeSpeed(int speed)
     counter_max = 20 - speed;
 }
 
-void Automaton::MouseMove(int x, int y)
-{
-    (*front)(x,y) = drawingnow;
-    emit updated();
-}
-
-
-void Automaton::MouseDown(int x, int y)
-{
-    statecode curr = (*front)(x,y);
-    drawingnow = 1 - curr;
-    (*front)(x,y) = drawingnow;
-    emit updated();
-}
-
 void Automaton::start()
 {
     if (running) return;
