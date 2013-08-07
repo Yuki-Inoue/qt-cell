@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initConnections()
 {
-    connect(ui->pushButton,SIGNAL(clicked()),
+    connect(ui->randomizeButton,SIGNAL(clicked()),
             this->life, SLOT(Randomize()));
 
     connect(ui->spinBox, SIGNAL(valueChanged(int)),
@@ -36,7 +36,7 @@ void MainWindow::initConnections()
     connect(timer,SIGNAL(timeout()),
             this->life,SLOT(Update()));
 
-    connect(ui->pushButton_2,SIGNAL(clicked()),
+    connect(ui->clearButton,SIGNAL(clicked()),
             this->life, SLOT(Clear()));
 
     connect(this->life,SIGNAL(updated()),
@@ -48,10 +48,10 @@ void MainWindow::initConnections()
     connect(ui->glView, SIGNAL(startAutomaton()),
             this->life, SLOT(start()));
 
-    connect(ui->pushButton_5, SIGNAL(clicked()),
+    connect(ui->stopButton, SIGNAL(clicked()),
             this->life, SLOT(stop()));
 
-    connect(ui->pushButton_4, SIGNAL(clicked()),
+    connect(ui->startButton, SIGNAL(clicked()),
             this->life, SLOT(start()));
 
     connect(this->life, SIGNAL(statusChanged(QString,int)),

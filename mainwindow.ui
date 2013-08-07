@@ -114,14 +114,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="startButton">
           <property name="text">
            <string>Start</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="stopButton">
           <property name="text">
            <string>Stop</string>
           </property>
@@ -130,14 +130,14 @@
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="clearButton">
         <property name="text">
          <string>Clear</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="randomizeButton">
         <property name="text">
          <string>Randomize</string>
         </property>
@@ -151,7 +151,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="quitButton">
         <property name="text">
          <string>Quit</string>
         </property>
@@ -160,16 +160,6 @@
      </layout>
     </widget>
    </widget>
-   <widget class="RTerminal" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>250</width>
-      <height>530</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -177,7 +167,7 @@
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -203,11 +193,6 @@
    <header>glwidget.hpp</header>
    <container>1</container>
   </customwidget>
-  <customwidget>
-   <class>RTerminal</class>
-   <extends>QPlainTextEdit</extends>
-   <header>rterminal.hpp</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -228,7 +213,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>quitButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
