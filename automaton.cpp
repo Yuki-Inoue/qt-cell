@@ -46,11 +46,6 @@ void Automaton::Update(void)
     emit updated();
 }
 
-void Automaton::Draw(int x, int y, statecode val)
-{
-    (*front)(x,y) = val;
-}
-
 int Automaton::getCellCount()
 {
     return cellCount;

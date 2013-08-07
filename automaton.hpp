@@ -28,7 +28,6 @@ private:
     LMatrix <statecode> field1;
     LMatrix <statecode> field2;
     LMatrix <statecode> *back;
-    statecode Cellcode(int x, int y);
     int counter, counter_max;
     statecode drawingnow;
     bool running;
@@ -69,7 +68,6 @@ public:
         back = &field2;
         return *this;
     }
-    void Draw(int x, int y, statecode val);
     int getCellCount();
     statecode getIllState() const { return ill_state; }
 public slots:
