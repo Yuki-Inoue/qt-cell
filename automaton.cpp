@@ -14,7 +14,6 @@ void Automaton::Update(void)
     counter = 0;
     for (int i = 0; i < aheight; i++)
         for (int j = 0; j < awidth; j++) {
-            StateCount[(*front)(i,j)]--;
             int neigh_live = Neighbours(i,j,LLIVE);
             int current = (*front)(i,j);
 
@@ -30,7 +29,6 @@ void Automaton::Update(void)
                     (*back)(i,j) = LDEAD;
                 }
             }
-            StateCount[(*back)(i,j)]++;
         }
     LMatrix <statecode> *temp;
     temp = front;
@@ -63,9 +61,7 @@ int Automaton::Neighbours(int x, int y, statecode code) const
 
 void Automaton::Draw(int x, int y, statecode val)
 {
-    StateCount[(*front)(x,y)]--;
     (*front)(x,y) = val;
-    StateCount[(*front)(x,y)]++;
 }
 
 int Automaton::getCellCount()
@@ -77,9 +73,7 @@ void Automaton::Randomize()
 {
     for (int i=0; i<aheight; i++)
         for (int j=0; j<awidth; j++) {
-            StateCount[(*front)(i,j)]--;
             (*front)(i,j) = rand() % 2;
-            StateCount[(*front)(i,j)]++;
         }
     emit updated();
     statusChanged("Randomized", 3000);
@@ -89,9 +83,7 @@ void Automaton::Clear()
 {
     for (int i=0; i<aheight; i++)
         for (int j=0; j<awidth; j++) {
-            StateCount[1] = 0;
             (*front)(i,j) = 0;
-            StateCount[0] = awidth*aheight;
         }
     emit updated();
     emit statusChanged("Cleared", 3000);

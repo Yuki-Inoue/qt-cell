@@ -30,7 +30,6 @@ private:
     statecode drawingnow;
     bool running;
 public:
-    std::map <statecode, int> StateCount;
     LMatrix <statecode> *front;
     statecode &operator () (int i, int j)
     {
@@ -52,7 +51,6 @@ public:
         for (int i=0; i<aheight; i++)
             for (int j=0; j<awidth; j++)
                 field1(i,j) = field2(i,j) = 0;
-        StateCount[0] = awidth*aheight;
 
         int find = rule.indexOf("/");
         for (int i = find+1; i<rule.length(); i++) {
@@ -75,7 +73,6 @@ public:
         field2 = right.field2;
         bear = right.bear;
         survive = right.survive;
-        StateCount = right.StateCount;
         front = &field1;
         back = &field2;
         return *this;
