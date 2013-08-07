@@ -7,24 +7,27 @@
 #include <QObject>
 #include <map>
 
-#define ASCIIZEROCODE 48 //Zero code in ascii table
-#define LLIVE 1
-#define LDEAD 0
-
 typedef unsigned char statecode;
 
 class Automaton : public QObject {
     Q_OBJECT
 private:
+
+
     int cellCount;
+
+
+    // for BZ
+    statecode ill_state;
+    double k1, k2, g;
+
+
 
     int awidth, aheight;
 
     LMatrix <statecode> field1;
     LMatrix <statecode> field2;
     LMatrix <statecode> *back;
-    QSet <int> bear, survive;
-    int Neighbours(int x, int y, statecode code) const;
     statecode Cellcode(int x, int y);
     int counter, counter_max;
     statecode drawingnow;
@@ -36,8 +39,8 @@ public:
         return (*front)(i,j);
     }
     
-    Automaton(int cellCount=40, QString rule="23/3", QObject *parent=0) :
-         QObject(parent), cellCount(cellCount)
+    Automaton(int cellCount=40, statecode ill_state=255, double k1=0.1, double k2=0.1, double g=0.1, QObject *parent=0) :
+	QObject(parent), cellCount(cellCount), ill_state(ill_state), k1(k1), k2(k2), g(g)
     {
         awidth = 600;
         aheight = 600;
@@ -52,15 +55,6 @@ public:
             for (int j=0; j<awidth; j++)
                 field1(i,j) = field2(i,j) = 0;
 
-        int find = rule.indexOf("/");
-        for (int i = find+1; i<rule.length(); i++) {
-            int count = rule[i].toAscii() - ASCIIZEROCODE;
-            bear.insert(count);
-        }
-        for (int i = 0; i<find; i++) {
-            int count = rule[i].toAscii() - ASCIIZEROCODE;
-            survive.insert(count);
-        }
         running = true;
     }
 
@@ -71,14 +65,13 @@ public:
         cellCount = right.cellCount;
         field1 = right.field1;
         field2 = right.field2;
-        bear = right.bear;
-        survive = right.survive;
         front = &field1;
         back = &field2;
         return *this;
     }
     void Draw(int x, int y, statecode val);
     int getCellCount();
+    statecode getIllState() const { return ill_state; }
 public slots:
     void Randomize();
     void Clear();

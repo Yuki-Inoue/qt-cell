@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     life = new Automaton(40,
-                         "23/3",
+			 255, 10, 1, 10,
                          this);
 
     graphics = new Graphics(ui->glView->width(),

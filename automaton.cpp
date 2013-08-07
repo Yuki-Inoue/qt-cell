@@ -14,49 +14,36 @@ void Automaton::Update(void)
     counter = 0;
     for (int i = 0; i < aheight; i++)
         for (int j = 0; j < awidth; j++) {
-            int neigh_live = Neighbours(i,j,LLIVE);
             int current = (*front)(i,j);
 
-            if (current == LLIVE) {
-                if (survive.contains(neigh_live))
-                    (*back)(i,j) = LLIVE;
-                else
-                    (*back)(i,j) = LDEAD;
-            } else { if (current == LDEAD) {
-                if (bear.contains(neigh_live))
-                    (*back)(i,j) = LLIVE;
-                else
-                    (*back)(i,j) = LDEAD;
-                }
-            }
+	    if (current == ill_state){
+		(*back)(i,j) = 0;
+		continue;
+	    }
+
+	    int a=0,b=0, s=current;
+	    for (int adj_i = std::max(0, i-1); adj_i < std::min(aheight, i+2); ++adj_i)
+		for (int adj_j = std::max(0, j-1); adj_j < std::min(awidth, j+2); ++adj_j)
+		    if (adj_i != i || adj_j != j) {
+			const int adjacent = (*front)(adj_i, adj_j);
+			s += adjacent;
+			if (adjacent) {
+			    if (adjacent == ill_state) b++;
+			    else a++;
+			}
+		    }
+
+	    const double next = current ?
+		(double)s/(a+b+1) + g :
+		a/k1 + b/k2;
+
+	    (*back)(i,j) = std::min(255, (int)next);
         }
     LMatrix <statecode> *temp;
     temp = front;
     front = back;
     back = temp;
     emit updated();
-}
-
-int Automaton::Neighbours(int x, int y, statecode code) const
-{
-    int ret=0;
-
-    int cx[3] = {x-1, x, x+1};
-    int cy[3] = {y-1, y, y+1};
-
-    if (x == 0) cx[0] = aheight -1;
-    else if (x == aheight - 1) cx[2] = 0;
-
-    if (y == 0) cy[0] = awidth -1;
-    else if (y == awidth - 1) cy[2] = 0;
-
-    for (int i=0; i<3; i++)
-        for (int j=0; j<3; j++){
-            if ((cx[i] == x) && (cy[j] == y)) continue;
-            statecode curr_state = (*front)(cx[i],cy[j]);
-            if (curr_state == code) ret++;
-        }
-    return ret;
 }
 
 void Automaton::Draw(int x, int y, statecode val)
@@ -73,7 +60,7 @@ void Automaton::Randomize()
 {
     for (int i=0; i<aheight; i++)
         for (int j=0; j<awidth; j++) {
-            (*front)(i,j) = rand() % 2;
+            (*front)(i,j) = rand() % ((int)ill_state+1);
         }
     emit updated();
     statusChanged("Randomized", 3000);

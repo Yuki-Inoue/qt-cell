@@ -72,16 +72,10 @@ void Grid::DrawWithMap(Automaton &a)
     for (int i=0; i<cellCount; i++)
         for(int j=0; j<cellCount; j++) {
             statecode cell_state = a(i,j);
+	    statecode ill_state = a.getIllState();
             double lcolor[3];
-            if (cell_state == LLIVE) {
-                lcolor[0] = 0.3;
-                lcolor[1] = 0.8765;
-                lcolor[2] = 0.3;
-            } else {
-                lcolor[0] = 0.0;
-                lcolor[1] = 0.0;
-                lcolor[2] = 0.0;
-            }
+	    double density = (double) cell_state / ill_state;
+	    std::fill(lcolor, lcolor+3, density);
             FillCell(i, j, lcolor);
         }
 }
