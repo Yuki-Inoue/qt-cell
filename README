@@ -1,7 +1,13 @@
-A cellular automaton of BZ reaction.
+A cellular automaton of BZ reaction, written in Qt.
 
 You can stop to change parameters.
 
-
+* shortcuts *
 Key_S (Command S in apple) -> Start/Stop
 Key_R (Command R in apple) -> Randomize
+
+
+
+
+INSTALL:
+  qmake QtCell.pro; make
