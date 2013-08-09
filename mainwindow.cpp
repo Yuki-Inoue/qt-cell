@@ -1,5 +1,6 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.hpp"
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     life = new Automaton(40,
-			 255, 10, 1, 10,
+			 255,
+			 ui->k1DoubleSpinBox->value(),
+			 ui->k2DoubleSpinBox->value(),
+			 ui->gDoubleSpinBox->value(),
                          this);
 
     graphics = new Graphics(ui->glView->width(),
@@ -27,6 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initConnections()
 {
+    connect(ui->gDoubleSpinBox, SIGNAL(valueChanged(double)),
+	    this->life, SLOT(setG(double)));
+
+    connect(ui->k1DoubleSpinBox, SIGNAL(valueChanged(double)),
+	    this->life, SLOT(setK1(double)));
+
+    connect(ui->k2DoubleSpinBox, SIGNAL(valueChanged(double)),
+	    this->life, SLOT(setK2(double)));
+
     connect(ui->randomizeButton,SIGNAL(clicked()),
             this->life, SLOT(Randomize()));
 
@@ -48,14 +61,28 @@ void MainWindow::initConnections()
     connect(ui->glView, SIGNAL(startAutomaton()),
             this->life, SLOT(start()));
 
-    connect(ui->stopButton, SIGNAL(clicked()),
-            this->life, SLOT(stop()));
-
     connect(ui->startButton, SIGNAL(clicked()),
-            this->life, SLOT(start()));
+	    this, SLOT(startGame()));
+
+    connect(ui->stopButton, SIGNAL(clicked()),
+            this, SLOT(stopGame()));
 
     connect(this->life, SIGNAL(statusChanged(QString,int)),
             ui->statusBar, SLOT(showMessage(QString,int)));
+}
+
+void MainWindow::startGame(){
+    life->start();
+    ui->gDoubleSpinBox->setReadOnly(true);
+    ui->k1DoubleSpinBox->setReadOnly(true);
+    ui->k2DoubleSpinBox->setReadOnly(true);
+}
+
+void MainWindow::stopGame(){
+    life->stop();
+    ui->gDoubleSpinBox->setReadOnly(false);
+    ui->k1DoubleSpinBox->setReadOnly(false);
+    ui->k2DoubleSpinBox->setReadOnly(false);
 }
 
 void MainWindow::initComponents()

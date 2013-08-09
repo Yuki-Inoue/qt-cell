@@ -50,9 +50,7 @@ public:
         counter = 0;
         counter_max = 5;
 
-        for (int i=0; i<aheight; i++)
-            for (int j=0; j<awidth; j++)
-                field1(i,j) = field2(i,j) = 0;
+	Randomize();
 
         running = true;
     }
@@ -77,6 +75,9 @@ public slots:
     void ChangeSpeed(int speed);
     void start();
     void stop();
+    void setG(double g_) { g = g_; }
+    void setK1(double k1_) { k1 = k1_; }
+    void setK2(double k2_) { k2 = k2_; }
 signals:
     void updated();
     void statusChanged(const QString &message, int timeout);

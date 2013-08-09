@@ -26,6 +26,9 @@ private:
     QTimer *timer;
     Automaton *life;
     Graphics *graphics;
+private slots:
+    void startGame();
+    void stopGame();
 };
 
 #endif // MAINWINDOW_H
