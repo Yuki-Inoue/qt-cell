@@ -107,6 +107,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         life->Randomize();
         break;
     }
+    case Qt::Key_S: {
+	(life->isRunning()? ui->stopButton: ui->startButton)
+	    -> click();
+	break;
+    }
     default: break;
     }
 }

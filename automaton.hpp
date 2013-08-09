@@ -66,8 +66,11 @@ public:
         back = &field2;
         return *this;
     }
+
     int getCellCount();
     statecode getIllState() const { return ill_state; }
+    bool isRunning() const { return running; }
+
 public slots:
     void Randomize();
     void Clear();
@@ -78,6 +81,7 @@ public slots:
     void setG(double g_) { g = g_; }
     void setK1(double k1_) { k1 = k1_; }
     void setK2(double k2_) { k2 = k2_; }
+
 signals:
     void updated();
     void statusChanged(const QString &message, int timeout);

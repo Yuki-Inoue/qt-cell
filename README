@@ -1,3 +1,7 @@
 A cellular automaton of BZ reaction.
 
 You can stop to change parameters.
+
+
+Key_S (Command S in apple) -> Start/Stop
+Key_R (Command R in apple) -> Randomize
